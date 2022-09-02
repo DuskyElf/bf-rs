@@ -1,4 +1,4 @@
-use std::{env, process::exit, fs::File, io::Read};
+use std::{env, process::exit, fs::File, io::{self, Write, Read}};
 
 #[derive(Clone)]
 enum OpCode {
@@ -148,7 +148,10 @@ fn run(instructions: &Vec<Instruction>, memory: &mut Vec<u8>, ptr: &mut usize) {
                 std::io::stdin().read_exact(&mut input).expect("Failed to read from stdin.");
                 memory[*ptr] = input[0];
             },
-            Instruction::Write => print!("{}", memory[*ptr] as char),
+            Instruction::Write => {
+                print!("{}", memory[*ptr] as char);
+                io::stdout().flush().unwrap();
+            }
             Instruction::Loop(looping_insturctions) => {
                 while memory[*ptr] != 0 {
                     run(&looping_insturctions, memory, ptr)
