@@ -6,5 +6,5 @@
 ```shell
 $ git clone git@github.com:DuskyElf/bf-rs.git
 $ cd bf-rs
-$ cargo run example.bf
+$ cargo run --release example.bf
 ```
