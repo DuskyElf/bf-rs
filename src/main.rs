@@ -139,8 +139,16 @@ fn parse(op_codes: Vec<OpCode>) -> Vec<Instruction> {
 fn run(instructions: &Vec<Instruction>, memory: &mut Vec<u8>, ptr: &mut usize) {
     for instr in instructions {
         match instr {
-            Instruction::Increment => memory[*ptr] += 1,
-            Instruction::Decrement => memory[*ptr] -= 1,
+            Instruction::Increment => if memory[*ptr] == 255 {
+                memory[*ptr] = 0;
+            } else {
+                memory[*ptr] += 1;
+            }
+            Instruction::Decrement => if memory[*ptr] == 0 {
+                memory[*ptr] = 255;
+            } else {
+                memory[*ptr] -= 1;
+            }
             Instruction::IncrementPointer => *ptr += 1,
             Instruction::DecrementPointer => *ptr -= 1,
             Instruction::Read => {
