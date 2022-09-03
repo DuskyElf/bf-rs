@@ -31,8 +31,8 @@ fn main() {
     let instructions = parse(op_codes);
 
     // Virtual Environment
-    let mut memory = vec![0u8; 1024];
-    let mut head = 512;
+    let mut memory = vec![0u8; 1000000];
+    let mut head = 500000;
 
     run(&instructions, &mut memory, &mut head);
 }
